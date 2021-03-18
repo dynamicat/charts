@@ -64,7 +64,13 @@ helm install bitwardenrs k8s-at-home/bitwardenrs -f values.yaml
 
 ## Custom configuration
 
-N/A
+### Ldap-Sync
+
+Via [vividboarder/bitwarden_rs_ldap](https://github.com/ViViDboarder/bitwarden_rs_ldap) it is possible to fetch your user base from an ldap server of your choosing. If ldapSync.enabled is true you will get the opportunity to use an ldap server which could assist with inviting users.
+
+With the ldapSync.extraContainers and ldapSync.extraVolumes values you're able to customize the ldap-sync pod.
+
+For example with environments that require a secure connection to an LDAP server you can add a VPN container, which enables the sync container to communicate over a VPN.
 
 ## Values
 
@@ -129,6 +135,11 @@ N/A
 | ingress.hosts[0].host | string | `"chart-example.local"` |  |
 | ingress.hosts[0].paths | list | `[]` |  |
 | ingress.tls | list | `[]` |  |
+| ldapSync.configToml | string | `""` |  |
+| ldapSync.enabled | bool | false |  |
+| ldapSync.existingSecret | string | `""` |  |
+| ldapSync.extraContainers | list | `[]` |  |
+| ldapSync.extraVolumes | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | persistence.accessMode | string | `"ReadWriteOnce"` |  |
@@ -155,6 +166,12 @@ N/A
 All notable changes to this application Helm chart will be documented in this file but does not include changes from our common library. To read those click [here](https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common#changelog).
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### [2.1.0]
+
+#### Added
+
+- Ldap sync support
 
 ### [2.0.1]
 
